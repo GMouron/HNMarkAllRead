@@ -1,0 +1,9 @@
+{
+    "name": "hnmarkallread",
+    "license": "MIT",
+    "author": "Guillaume Mouron, based on Daniele Mazzini code (https://github.com/danmaz74/HNMarkAllRead)",
+    "version": "1.30",
+    "fullName": "Hacker News: Mark All Read",
+    "id": "hnmarkallreadfx",
+    "description": "Save time on HN by marking read the titles and comments you already scanned. And more."
+}
