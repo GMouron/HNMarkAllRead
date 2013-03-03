@@ -163,7 +163,8 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     var comments_total = 0;
     var collapsible_parents = {};
 
-    var comments_counter = $($(".subtext").children("a")[2]);
+    var subtextChildren = $(".subtext").children("a");
+    var comments_counter = $(subtextChildren[subtextChildren.length - 1]);
 
     $($(".subtext")[0]).append("&nbsp; <span class='mark_all_read' title='Mark all read'>&nbsp;</span>"+
             "<span id='hide_span' class='hide_comments_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read comments</label></span>");
