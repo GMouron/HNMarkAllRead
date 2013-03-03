@@ -152,6 +152,9 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     }
 
     localStorage['marked_read_comments'] = JSON.stringify(marked_read_comments);
+    if (!localStorage['hide_marked_comments']) {
+        localStorage['hide_marked_comments']='false';
+    }
 
     // comments traversing
     var ii = $("img");
