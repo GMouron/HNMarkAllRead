@@ -1,12 +1,12 @@
-.mark_all_read img {
-    border: 1px solid white;
+.mark_all_read {
+    position: relative;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width:16px;
+    display:inline-block;
     position: relative;
     top: 2px;
-}
-
-.mark_all_read img:hover {
-    cursor: pointer;
-    box-shadow: 1px 1px 9px black;
+    cursor:pointer;
 }
 
 .hide_news_span {
