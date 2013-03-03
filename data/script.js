@@ -57,7 +57,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
         // check if following
         var following = false;
-        var comments_a = sub.childNodes[6];
+        var comments_a = (sub.childNodes.length > 2 ? sub.childNodes[sub.childNodes.length - 1]:null);
 
         if (comments_a) { // if a real news item, and not just a yc announcement
             var item_id = comments_a.href.match(/[0-9]+/)[0];
