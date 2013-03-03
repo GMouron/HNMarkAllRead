@@ -108,7 +108,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
                     var mainlink = $(as);
 
                     // add the link to the "read" ones
-                    if (!marked_read_urls[mainlink.attr("href")]) {
+                    if (!marked_read_urls[mainlink.attr("href")] && mainlink.text()!="More") {
                         // add the url to the read ones
                         marked_read_urls[mainlink.attr("href")] = (new Date()).getTime();
 
