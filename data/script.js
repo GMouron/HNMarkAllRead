@@ -127,9 +127,11 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
             localStorage["hide_marked_urls"] = !!$("#hide_read_items").attr("checked");
 
             $(".title").each(function(i,el) {
-                var mainlink = $($(el).children("a")[0]);
-
-                if (marked_read_urls[mainlink.attr("href")]) hideShowRow(mainlink);
+                var as = $(el).children("a")[0];
+                if(as) {
+                    var mainlink = $(as);
+                    if (marked_read_urls[mainlink.attr("href")]) hideShowRow(mainlink);
+                }
             });
         });
     }
