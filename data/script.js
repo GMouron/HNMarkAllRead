@@ -363,12 +363,10 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     // set collapsible comments up
     for (var id in collapsible_parents) {
         var the_parent = $(collapsible_parents[id]);
-
         if(the_parent.addClass) {
             the_parent.addClass("collapsible_comment");
         }
-
-        $("<div class='comment_collapse' title='expand/collapse'>-</div>").appendTo(the_parent).click((function(id) { return function(){ // toggle collapse
+        $("<div class='comment_collapse' title='expand/collapse'>-</div>").appendTo(the_parent.prev()).click((function(id) { return function(){ // toggle collapse
             setCollapsed(id, !$(".comment_tr_"+id).data("collapsed"));
         }; })(id));
     }
@@ -394,13 +392,17 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
             tr.data("collapsed",true);
             td.addClass("collapsible_collapsed");
-            td.children(".comment_collapse").text("+");
+            var arrowsTd = td.prev().children(".comment_collapse");
+            arrowsTd.text("+");
+            arrowsTd.addClass("plus");
         } else {
             deleteCssRule(".descends_from_"+id);
 
             tr.data("collapsed", false);
             td.removeClass("collapsible_collapsed");
-            td.children(".comment_collapse").text("-");
+            var arrowsTd = td.prev().children(".comment_collapse");
+            arrowsTd.text("-");
+            arrowsTd.removeClass("plus");
         }
     }
 

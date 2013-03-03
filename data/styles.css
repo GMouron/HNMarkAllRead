@@ -45,9 +45,6 @@
 .comment_collapse {
     width: 20px;
     height: 15px;
-    position: absolute;
-    top: 30px;
-    left: -20px;
     font-family: monospace;
     font-size: 10px;
     font-weight: bold;
@@ -66,7 +63,7 @@
     position: relative;
 }
 
-.collapsible_collapsed .comment_collapse {
+.plus {
     color: green;
 }
 
