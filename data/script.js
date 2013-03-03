@@ -137,6 +137,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     }
 } else { // comments page
     // initial setup for read comments
+    var marked_read_comments = {};
     if (localStorage['marked_read_comments']) {
         // cleanup
         marked_read_comments = JSON.parse(localStorage['marked_read_comments']);
@@ -164,7 +165,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
     var comments_counter = $($(".subtext").children("a")[2]);
 
-    $($(".subtext")[0]).append("&nbsp; <span class='mark_all_read' title='Mark all comments read'><img src='"+chrome.extension.getURL("/images/HNMarkAllRead-18.png")+"'></img></span>"+
+    $($(".subtext")[0]).append("&nbsp; <span class='mark_all_read' title='Mark all read'>&nbsp;</span>"+
             "<span id='hide_span' class='hide_comments_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read comments</label></span>");
 
     $("<tr><td id='post_comments_tr'></td></tr>").insertAfter($($("table")[0].childNodes[0].childNodes[2]));
@@ -186,7 +187,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
     var sheet = document.styleSheets[document.styleSheets.length-1];
 
-    for (i=0;i<ii.length;i++) {
+    for (var i=0;i<ii.length;i++) {
         var n = ii[i];
         try {
             if (n.parentNode.tagName =='TD' && n.src == 'http://ycombinator.com/images/s.gif' && n.parentNode && n.parentNode.nextSibling) {
@@ -222,12 +223,12 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
                     first_child = false;
 
                     if (depth < last_depth) {
-                        for (j=0;j<last_depth-depth;j++) parents.pop();
+                        for (var j=0;j<last_depth-depth;j++) parents.pop();
                     }
                 }
 
                 if (parents.length > 0) {
-                    var parent = parents[parents.length-1];
+                    var the_parent = parents[parents.length-1];
 
                     $("<span"+(first_child ? " class='showparent_firstchild'" : "")+"> | <span class='showparent'>show parent</span></span>").appendTo($($(node).children()[0]).children(".comhead")).
                         children(".showparent").
@@ -238,11 +239,11 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
                                 $("#parent_div").show()
                             );
 
-                        }})($(parent), $(node)),
+                        }})($(the_parent), $(node)),
                         (function(parent, node){ return function() {
                             $("#parent_tr").html("");
                             $("#parent_div").hide();
-                        }})($(parent, $(node)))
+                        }})($(the_parent, $(node)))
                     );
                 }
 
@@ -309,16 +310,23 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
         localStorage['followed_items'] = JSON.stringify(followed_items);
     });
 
-    /////////////////////////////////
-    // hiding marked comments
+    /////////////////////////////
+    // utilities
 
-    if (localStorage["hide_marked_comments"] == 'true') {
-        $("#hide_read_items").attr("checked", true);
-        hideMarkedComments(true);
-    } else {
-        hideMarkedComments(false);
+    function addCssRule(rule) {
+        sheet.insertRule(rule, sheet.cssRules.length)
     }
 
+    function deleteCssRule(selector) {
+        for (var i=0;i<sheet.cssRules.length;i++) {
+            if (sheet.cssRules[i].selectorText == selector) {
+                sheet.deleteRule(i);
+            }
+        }
+    }
+
+    /////////////////////////////////
+    // hiding marked comments
     function hideMarkedComments(val) {
         if (val) {
             addCssRule(".read_comment_tr {display: none;}");
@@ -328,6 +336,14 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
             deleteCssRule(".read_comment_tr");
         }
     }
+
+    if (localStorage["hide_marked_comments"] == 'true') {
+        $("#hide_read_items").attr("checked", true);
+        hideMarkedComments(true);
+    } else {
+        hideMarkedComments(false);
+    }
+
 
     $("#hide_read_items").click(function() {
         localStorage["hide_marked_comments"] = !!$("#hide_read_items").attr("checked");
@@ -342,11 +358,13 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
     // set collapsible comments up
     for (var id in collapsible_parents) {
-        var parent = $(collapsible_parents[id]);
+        var the_parent = $(collapsible_parents[id]);
 
-        parent.addClass("collapsible_comment");
+        if(the_parent.addClass) {
+            the_parent.addClass("collapsible_comment");
+        }
 
-        $("<div class='comment_collapse' title='expand/collapse'>-</div>").appendTo(parent).click((function(id) { return function(){ // toggle collapse
+        $("<div class='comment_collapse' title='expand/collapse'>-</div>").appendTo(the_parent).click((function(id) { return function(){ // toggle collapse
             setCollapsed(id, !$(".comment_tr_"+id).data("collapsed"));
         }; })(id));
     }
@@ -382,20 +400,6 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
         }
     }
 
-    /////////////////////////////
-    // utilities
-
-    function addCssRule(rule) {
-        sheet.insertRule(rule, sheet.cssRules.length)
-    }
-
-    function deleteCssRule(selector) {
-        for (var i=0;i<sheet.cssRules.length;i++) {
-            if (sheet.cssRules[i].selectorText == selector) {
-                sheet.deleteRule(i);
-            }
-        }
-    }
 }
 
 
