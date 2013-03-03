@@ -29,7 +29,9 @@ If you find any bugs, or improve the core functionality, you're very welcome to 
 ## License
 
 The MIT License (MIT)
+
 Copyright (c) 2013 Guillaume Mouron
+
 Copyright for the original code (c) 2012 Daniele Mazzini
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
