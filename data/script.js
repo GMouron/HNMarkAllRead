@@ -103,17 +103,20 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
         $(".mark_all_read").click(function(){
             $(".title").each(function(i,el) {
-                var mainlink = $($(el).children("a")[0]);
+                var as = $(el).children("a")[0];
+                if(as) {
+                    var mainlink = $(as);
 
-                // add the link to the "read" ones
-                if (!marked_read_urls[mainlink.attr("href")]) {
-                    // add the url to the read ones
-                    marked_read_urls[mainlink.attr("href")] = (new Date()).getTime();
+                    // add the link to the "read" ones
+                    if (!marked_read_urls[mainlink.attr("href")]) {
+                        // add the url to the read ones
+                        marked_read_urls[mainlink.attr("href")] = (new Date()).getTime();
 
-                    // give the "read" color
-                    mainlink.css({color: "#828282"});
+                        // give the "read" color
+                        mainlink.css({color: "#828282"});
 
-                    hideShowRow(mainlink);
+                        hideShowRow(mainlink);
+                    }
                 }
             });
 
