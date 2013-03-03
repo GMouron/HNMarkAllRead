@@ -1,6 +1,6 @@
 # Hacker News: Mark All Read
 
-This is the source code for the Firefox extension [Hacker News: Mark All Read](https://github.com/GMouron/HNMarkAllRead) (URL on Mozilla's website still to come).
+This is the source code for the Firefox extension [Hacker News: Mark All Read](https://addons.mozilla.org/en-US/firefox/addon/hacker-news-mark-all-read/) (Add-on under review).
 This is based on the Chrome extension by Daniele Mazzini, [source code here](https://github.com/danmaz74/HNMarkAllRead)
 
 ## Saving Time on Hacker News
