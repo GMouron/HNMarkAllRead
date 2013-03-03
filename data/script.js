@@ -237,11 +237,11 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
                     $("<span"+(first_child ? " class='showparent_firstchild'" : "")+"> | <span class='showparent'>show parent</span></span>").appendTo($($(node).children()[0]).children(".comhead")).
                         children(".showparent").
                         hover(
-                        (function(parent, node){ return function() {
-                            $("#parent_tr").append(parent.clone());
-                            node.css({position: "relative"}).append(
-                                $("#parent_div").show()
-                            );
+                        (function(parent, node){ return function(e) {
+                            var newParent = parent.clone();
+                            $(newParent).attr("colspan","3");
+                            $("#parent_tr").append(newParent);
+                            node.parent().before($("#parent_tr"));
 
                         }})($(the_parent), $(node)),
                         (function(parent, node){ return function() {

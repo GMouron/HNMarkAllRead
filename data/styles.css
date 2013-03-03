@@ -24,10 +24,7 @@
     top: 2px;
 }
 
-#parent_div {
-    position: absolute;
-    bottom: 100%;
-
+#parent_tr {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 3px;
