@@ -8,11 +8,9 @@
     top: 2px;
     cursor:pointer;
 }
-
-.hide_news_span {
+#hide_read_items {
     position: relative;
-    top: -4px;
-    font-size: 10px;
+    top: 2px;
 }
 
 .hide_comments_span {
