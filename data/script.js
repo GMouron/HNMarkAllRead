@@ -61,7 +61,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
         if (comments_a) { // if a real news item, and not just a yc announcement
             var item_id = comments_a.href.match(/[0-9]+/)[0];
-            var comments = comments_a.innerText.match(/[0-9]+/) ? comments_a.innerText.match(/[0-9]+/)[0]*1 : 0;
+            var comments = comments_a.textContent.match(/[0-9]+/) ? comments_a.textContent.match(/[0-9]+/)[0]*1 : 0;
 
             // if following, check the number of comments and highlight
             if (followed_items[item_id]) {
