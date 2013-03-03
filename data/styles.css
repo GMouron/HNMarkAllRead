@@ -8,17 +8,28 @@
     top: 2px;
     cursor:pointer;
 }
+.mark_all_read_comments {
+    top: 0px;
+}
+
 #hide_read_items {
     position: relative;
     top: 2px;
 }
 
 .hide_comments_span {
-    position: relative;
-
     font-size: 10px;
 }
 
+#hide_read_comments {
+    position: relative;
+    top: 4px;
+}
+
+#follow_item {
+    position: relative;
+    top:2px;
+}
 .near_more {
     position: relative;
     top: 2px;

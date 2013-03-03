@@ -169,7 +169,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     var subtextChildren = $(".subtext").children("a");
     var comments_counter = $(subtextChildren[subtextChildren.length - 1]);
 
-    $($(".subtext")[0]).append("&nbsp; <span class='mark_all_read' title='Mark all read'>&nbsp;</span>"+
+    $($(".subtext")[0]).append("&nbsp; <span class='mark_all_read mark_all_read_comments' title='Mark all read'>&nbsp;</span>"+
             "<span id='hide_span' class='hide_comments_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read comments</label></span>");
 
     $("<tr><td id='post_comments_tr'></td></tr>").insertAfter($($("table")[0].childNodes[0].childNodes[2]));
