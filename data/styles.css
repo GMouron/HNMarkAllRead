@@ -42,6 +42,14 @@
     padding: 3px;
 }
 
+.showparent {
+    cursor: pointer;
+}
+
+.showparent:hover {
+    text-decoration: underline;
+}
+
 .read_comment_td {
     background-color: #EBEBE4;
 }

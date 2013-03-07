@@ -234,18 +234,22 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
                     $("<span"+(first_child ? " class='showparent_firstchild'" : "")+"> | <span class='showparent'>show parent</span></span>").appendTo($($(node).children()[0]).children(".comhead")).
                         children(".showparent").
-                        hover(
+                        click(
                         (function(parent, node){ return function(e) {
-                            var newParent = parent.clone();
-                            $(newParent).attr("colspan","3");
-                            $("#parent_tr").append(newParent);
-                            node.parent().before($("#parent_tr"));
-
-                        }})($(the_parent), $(node)),
-                        (function(parent, node){ return function() {
-                            $("#parent_tr").html("");
-                            $("#parent_div").hide();
-                        }})($(the_parent, $(node)))
+                            if(node.hasClass("parentShown")) {
+                                $("#parent_tr").html("");
+                                $("#parent_div").hide();
+                                node.removeClass("parentShown");
+                                this.textContent = "show parent";
+                            } else {
+                                var newParent = parent.clone();
+                                $(newParent).attr("colspan","3");
+                                $("#parent_tr").append(newParent);
+                                node.parent().before($("#parent_tr"));
+                                node.addClass("parentShown");
+                                this.textContent = "hide parent";
+                            }
+                        }})($(the_parent), $(node))
                     );
                 }
 
