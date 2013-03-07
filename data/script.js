@@ -8,8 +8,6 @@ if (localStorage['followed_items']) {
     for (var item_id in followed_items) {
         if (now - followed_items[item_id].time > 345600000) delete followed_items[item_id];
     }
-} else {
-    followed_items = {};
 }
 
 localStorage['followed_items'] = JSON.stringify(followed_items);
@@ -26,8 +24,6 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
         for (var url in marked_read_urls) {
             if (now - marked_read_urls[url] > 345600000) delete marked_read_urls[url];
         }
-    } else {
-        marked_read_urls = {};
     }
 
     localStorage['marked_read_urls'] = JSON.stringify(marked_read_urls);
@@ -124,7 +120,9 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
         });
 
         $("#hide_read_items").click(function() {
-            localStorage["hide_marked_urls"] = !!$("#hide_read_items").attr("checked");
+            var isChecked = $("#hide_read_items").is(":checked");
+
+            localStorage["hide_marked_urls"] = isChecked;
 
             $(".title").each(function(i,el) {
                 var as = $(el).children("a")[0];
@@ -350,9 +348,10 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
 
     $("#hide_read_items").click(function() {
-        localStorage["hide_marked_comments"] = !!$("#hide_read_items").attr("checked");
+        var isChecked = $("#hide_read_items").is(":checked");
+        localStorage["hide_marked_comments"] = isChecked;
 
-        hideMarkedComments($("#hide_read_items").attr("checked"));
+        hideMarkedComments(isChecked);
     });
 
     comments_counter.text("unread comments: "+comments_unread+"/"+comments_total);
