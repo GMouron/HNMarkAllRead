@@ -192,7 +192,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     for (var i=0;i<ii.length;i++) {
         var n = ii[i];
         try {
-            if (n.parentNode.tagName =='TD' && n.src == 'http://ycombinator.com/images/s.gif' && n.parentNode && n.parentNode.nextSibling) {
+            if (n.parentNode.tagName =='TD' && n.src.endsWith('s.gif') && n.parentNode && n.parentNode.nextSibling) {
                 comments_total++;
                 var node = n.parentNode.nextSibling.nextSibling; // the comment td
 
@@ -304,7 +304,9 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     }
 
     $("#follow_item").click(function(){
-        if ($("#follow_item").attr("checked")) {
+        var isChecked = $("#follow_item").is(":checked");
+
+        if (isChecked) {
             followed_items[item_id] = {
                 time: (new Date()).getTime(),
                 read_comments: comments_total - comments_unread
