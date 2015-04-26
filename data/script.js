@@ -45,7 +45,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
     // check which pieces of news have already been marked read and change their color
     $(".subtext").each(function(i,sub) {
-        var mainlink = $(sub.parentNode.previousSibling.childNodes[2].childNodes[1]);
+        var mainlink = $(sub.parentNode.previousSibling).find(".title > a");
 
         titles++;
 
@@ -53,9 +53,10 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
         // check if following
         var following = false;
-        var comments_a = (sub.childNodes.length > 2 ? sub.childNodes[sub.childNodes.length - 1]:null);
+        var jqComments_a = $(sub).find("a").last();
 
-        if (comments_a) { // if a real news item, and not just a yc announcement
+        if (jqComments_a.length > 0) { // if a real news item, and not just a yc announcement
+            var comments_a = jqComments_a[0];
             var item_id = comments_a.href.match(/[0-9]+/)[0];
             var comments = comments_a.textContent.match(/[0-9]+/) ? comments_a.textContent.match(/[0-9]+/)[0]*1 : 0;
 
@@ -68,7 +69,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
                 var unread_comments = comments - followed_items[item_id].read_comments;
 
                 if (unread_comments > 0) {
-                    $(comments_a).text("unread comments: "+unread_comments+"/"+comments).css({color: "green"});
+                    jqComments_a.text("unread comments: "+unread_comments+"/"+comments).css({color: "green"});
                 }
 
                 mainlink.data("following", true);
@@ -192,12 +193,12 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     for (var i=0;i<ii.length;i++) {
         var n = ii[i];
         try {
-            if (n.parentNode.tagName =='TD' && n.src.endsWith('s.gif') && n.parentNode && n.parentNode.nextSibling) {
+            if (n.parentNode && n.parentNode.nextSibling && n.parentNode.tagName === 'TD' && n.src.endsWith("/s.gif")) {
                 comments_total++;
-                var node = n.parentNode.nextSibling.nextSibling; // the comment td
+                var node = n.parentNode.nextElementSibling.nextElementSibling; // the comment td
 
                 // read/unread comments management
-                var comment_id = node.childNodes[0].childNodes[0].childNodes[2].href.match(/[0-9]+/)[0];
+                var comment_id = $(node).find(".comhead a")[1].href.match(/[0-9]+/)[0];
 
                 var tr = node.parentNode.parentNode.parentNode.parentNode.parentNode;
 
