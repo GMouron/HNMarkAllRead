@@ -49,8 +49,6 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
         titles++;
 
-        console.log(mainlink.html());
-
         // check if following
         var following = false;
         var jqComments_a = $(sub).find("a").last();
@@ -93,7 +91,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     // add the controls only in news listing pages
     if (titles > 29) {
         $($(".pagetop")[0]).append("&nbsp;  <span class='mark_all_read' title='Mark all read'>&nbsp;</span>"+
-            "<span id='hide_span' class='hide_news_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read</label></span>");
+        "<span id='hide_span' class='hide_news_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read</label></span>");
         if (localStorage["hide_marked_urls"] == 'true') $("#hide_read_items").attr("checked", true);
 
         if (more_td) more_td.append("&nbsp; <span class='mark_all_read near_more' title='Mark all read'>&nbsp;</span>");
@@ -169,18 +167,18 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
     var comments_counter = $(subtextChildren[subtextChildren.length - 1]);
 
     $($(".subtext")[0]).append("&nbsp; <span class='mark_all_read mark_all_read_comments' title='Mark all read'>&nbsp;</span>"+
-            "<span id='hide_span' class='hide_comments_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read comments</label></span>");
+    "<span id='hide_span' class='hide_comments_span'><input type='checkbox' id='hide_read_items' /><label for='hide_read_items'>Hide read comments</label></span>");
 
     $("<tr><td id='post_comments_tr'></td></tr>").insertAfter($($("table")[0].childNodes[0].childNodes[2]));
     $(".mark_all_read").clone().appendTo($("#post_comments_tr"));
 
     $($("table")[2].nextSibling.nextSibling).replaceWith("<div id='expand_collapse_top'>"+
-            "<span id='collapse_all' class='clickable' title='collapse all comments'>--</span>"+
-            "&nbsp;&nbsp;"+
-            "<span id='expand_all' class='clickable' title='expand all comments'>++</span>"+
-            "&nbsp;&nbsp;"+
-            "<span id='follow_span'><input type='checkbox' id='follow_item' title='Follow the comments for this item from the first page' />Follow comments</span>"+
-        "</div>"
+      "<span id='collapse_all' class='clickable' title='collapse all comments'>--</span>"+
+      "&nbsp;&nbsp;"+
+      "<span id='expand_all' class='clickable' title='expand all comments'>++</span>"+
+      "&nbsp;&nbsp;"+
+      "<span id='follow_span'><input type='checkbox' id='follow_item' title='Follow the comments for this item from the first page' />Follow comments</span>"+
+      "</div>"
     );
 
     $('body').append("<div id='parent_div'><table><tr id='parent_tr'></tr></table></div>");
@@ -265,7 +263,6 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
                 last_depth = depth;
             }
         } catch(e) {
-            console.log(e);
         }
     }
 
@@ -379,7 +376,7 @@ if (!window.location.href.match(/\/item\?/)) { // ignore if displaying a news it
 
     $("#collapse_all").click(function(){
         $(".collapsible_comment").each(function(i,el){
-           setCollapsed($(el).data("comment_id"),true);
+            setCollapsed($(el).data("comment_id"),true);
         });
     });
 
